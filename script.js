@@ -1,3 +1,57 @@
+//Filter
+const selector = document.getElementById("selector");
+const dropdown = document.querySelector(".dropdown");
+
+selector.addEventListener("focus", () => {
+    dropdown.classList.add("active");
+})
+
+document.addEventListener("click", (event) => {
+    if (!selector.contains(event.target)) {
+        dropdown.classList.remove("active");
+    }
+});
+
+// Filter tasks based on the selected option
+dropdown.addEventListener("click", (event) => {
+    if (event.target.tagName === "BUTTON") {
+        if ( event.target.className === "active"){
+            return; // Ignore clicks on the active button
+        }
+        const filter = event.target.innerText;
+        const btnText = document.getElementById("btn-text");
+        btnText.innerText = filter;
+        
+        for (btn of dropdown.querySelectorAll("button")) {
+            btn.classList.remove("active");
+        }
+        event.target.classList.add("active");
+
+       filterTasks(filter);
+    }
+});
+
+function filterTasks(filter) {
+    if (filter === "All") {
+        for (element of document.querySelectorAll(".task")) {
+            element.classList.remove("hidden");
+        }
+    }
+    else if (filter === "Active") {
+        for (element of document.querySelectorAll(".task")) {
+            if (element.classList.contains("done"))  element.classList.add("hidden");
+                else element.classList.remove("hidden");
+        }
+    } 
+    else {
+        for (element of document.querySelectorAll(".task")) {
+            if (element.classList.contains("done")) element.classList.remove("hidden");
+            else element.classList.add("hidden");   
+        }   
+    }
+}
+
+// Add Task
 const addBtn = document.getElementById("add-todo");
 
 function addTask(){
@@ -52,15 +106,9 @@ function addTask(){
     
     todoList.appendChild(task);
     input.value = ""; // Clear the input field
+    
     //task done
-    const checkBox = task.querySelector("input[type='checkbox']");
-    checkBox.addEventListener("change", () => {
-        if (checkBox.checked) {
-            task.classList.add("done");
-        } else {
-            task.classList.remove("done");
-        }
-    });
+    taskDone(task);
 
     //removing task
     const removeBtn = task.querySelector(".remove-todo");
@@ -69,6 +117,18 @@ function addTask(){
     //edit
     const edit = task.querySelector(".edit");
     edit.addEventListener("click", () => editTask(task));
+}
+
+function taskDone(task) {
+    const checkBox = task.querySelector("input[type='checkbox']");
+    console.log(checkBox);
+    checkBox.addEventListener("change", () => {
+    if (checkBox.checked) {
+        task.classList.add("done");
+    } else {
+        task.classList.remove("done");
+    }
+});
 }
 
 function editTask(task){
@@ -119,12 +179,13 @@ function editTask(task){
             </g>
         </g>
     </svg>`
+
     confirmation.append(confirmBtn, cancelBtn); // Add confirmation buttons;
     editBtn.classList.add("hidden"); // Hide the edit button
 
     confirmBtn.addEventListener("click", () => { 
         label.setAttribute("readonly","readonly");
-        
+
         confirmation.removeChild(confirmBtn); // Remove the confirm button
         confirmation.removeChild(cancelBtn); // Remove the cancel button
         editBtn.classList.remove("hidden"); // Show the edit button again
@@ -143,55 +204,3 @@ function editTask(task){
 
 addBtn.addEventListener("click", addTask);
 
-//Filter
-const selector = document.getElementById("selector");
-const dropdown = document.querySelector(".dropdown");
-
-selector.addEventListener("focus", () => {
-    dropdown.classList.add("active");
-})
-
-document.addEventListener("click", (event) => {
-    if (!selector.contains(event.target)) {
-        dropdown.classList.remove("active");
-    }
-});
-
-// Filter tasks based on the selected option
-dropdown.addEventListener("click", (event) => {
-    if (event.target.tagName === "BUTTON") {
-        if ( event.target.className === "active"){
-            return; // Ignore clicks on the active button
-        }
-        const filter = event.target.innerText;
-        const btnText = document.getElementById("btn-text");
-        btnText.innerText = filter;
-        
-        for (btn of dropdown.querySelectorAll("button")) {
-            btn.classList.remove("active");
-        }
-        event.target.classList.add("active");
-
-       filterTasks(filter);
-    }
-});
-
-function filterTasks(filter) {
-    if (filter === "All") {
-        for (element of document.querySelectorAll(".task")) {
-            element.classList.remove("hidden");
-        }
-    }
-    else if (filter === "Active") {
-        for (element of document.querySelectorAll(".task")) {
-            if (element.classList.contains("done"))  element.classList.add("hidden");
-                else element.classList.remove("hidden");
-        }
-    } 
-    else {
-        for (element of document.querySelectorAll(".task")) {
-            if (element.classList.contains("done")) element.classList.remove("hidden");
-            else element.classList.add("hidden");   
-        }   
-    }
-}
