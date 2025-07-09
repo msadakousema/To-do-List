@@ -1,0 +1,474 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+:root {
+  --primary-color: #3a3f4b;        /* Soft charcoal for cards / main UI */
+  --secondary-color: #5a6170;      /* Medium gray-blue for headers / nav */
+  --accent-color: #4caf50;         /* Calming green for complete/add */
+  --danger-color: #f25f5c;         /* Softer, friendly red for delete/errors */
+  --background-color: #383c44;     /* Dark slate for gradients and backgrounds */
+  --text-color: #f0f2f5;           /* Very light text for contrast */
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: url('layered-waves-haikei.svg') no-repeat center center fixed;
+  background-size: cover;
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+h1 {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid var(--secondary-color);
+  margin: 0;
+  padding-block: 1rem;
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: linear-gradient(135deg, var(--background-color), var(--secondary-color));
+  border-radius: 2.4rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4); /* softer, modern shadow */
+}
+
+.todo-container {
+  width: clamp(300px, 80vw, 800px);
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+
+}
+
+.todo-input-container,.task {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+#todo-input,.label {
+  flex: 5; /* Take up remaining space */
+  padding: 0.8rem 1rem;
+  border: none;
+  border-radius: 12px;
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  font-size: 1.2rem;
+  box-sizing: border-box;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.3),
+    inset 1px 1px 4px rgba(255,255,255,0.1),
+    inset -1px -1px 2px rgba(0,0,0,0.4);
+  transition: box-shadow 0.3s ease, transform 0.3s ease,.3s ease-out;
+}
+#todo-input{
+    height: 48px;
+}
+
+#todo-input::placeholder {
+  color: var(--text-color);
+}
+
+input:focus {
+  outline: none;
+  box-shadow:
+    0 0 8px var(--background-color),
+    inset 1px 1px 2px rgba(255,255,255,0.1),
+    inset -1px -1px 2px rgba(0,0,0,0.4);
+}
+
+input:focus:not([readonly]) {
+  transform: scale(1.02);
+}
+
+#add-todo ,.remove-todo {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: none;
+  position: relative;
+  border-radius: 12px;
+  cursor: pointer;
+  padding: 0; /* keep it square */
+  box-shadow:
+    0 4px 8px rgba(0,0,0,0.3),
+    inset 1px 1px 2px rgba(255,255,255,0.08),
+    inset -1px -1px 2px rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
+}
+.remove-todo {
+  background-color: var(--danger-color);
+}
+
+#add-todo::before,
+#add-todo::after,
+.remove-todo::before,
+.remove-todo::after  {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: linear-gradient(135deg, var(--background-color), var(--secondary-color));
+  border-radius: 4px;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+}
+
+#add-todo::before,.remove-todo::before  {
+  width: 12%;
+  height: 60%;
+  box-shadow:
+    2px 2px 4px rgba(0,0,0,0.2),
+    -2px -2px 4px rgba(255,255,255,0.1);
+
+}
+
+
+#add-todo::after,.remove-todo::after  {
+  width: 60%;
+  height: 12%;
+  box-shadow:
+    2px 2px 4px rgba(0,0,0,0.2),
+    inset -1px -1px 2px rgba(255,255,255,0.1);
+}
+
+.remove-todo::before,.remove-todo::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+#add-todo:hover {
+  background-color: var(--secondary-color);
+  transform: scale(1.05);
+}
+#add-todo:active {
+  background-color: var(--primary-color);
+  transform: scale(0.95);
+}
+
+#add-todo:hover::before,
+#add-todo:hover::after {
+  box-shadow:
+    2px 2px 4px rgba(0,0,0,0.3),
+    inset -1px -1px 2px rgba(255,255,255,0.1);
+}
+#add-todo:hover::before{
+    transform: translate(-50%, -50%) scaleY(1.2) ;
+}
+#add-todo:hover::after{
+    transform: translate(-50%, -50%) scaleX(1.2) ;
+}
+
+#add-todo:active::before{
+    transform: translate(-50%, -50%) scale(.9) ;
+}
+#add-todo:active::after{
+    transform: translate(-50%, -50%) scale(.9) ;
+}
+
+.remove-todo:hover {
+  transform: scale(1.05);
+}
+.remove-todo:active {
+  transform: scale(0.95);
+}
+
+
+@media screen and (max-width: 600px) {
+  html {
+    font-size: 14px;
+  }
+  .todo-container {
+    padding: 1.5rem;
+  }
+}
+
+ul,li{
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+p,.task{
+  margin: 0;
+  font-size: 1.2rem;
+}
+.task{
+  animation: .4s ease-in-out slideInFromBottom;
+}
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(12px) scale(.8);
+    opacity: 0;
+    filter: blur(6px);
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+
+}
+#todo-list{
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-top: 1.2rem;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+    box-shadow:
+    0 2px 4px rgba(0,0,0,0.3),
+    inset 1px 1px 2px rgba(255,255,255,0.05),
+    inset -1px -1px 2px rgba(0,0,0,0.4);
+  box-sizing: border-box;
+}
+
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.checkbox-container label {
+  cursor: pointer;
+}
+
+.checkbox input[type="checkbox"] {
+  display: none; /* Hide the default checkbox */
+}
+.checkbox {
+  width: 48px;
+  height: 48px;
+  background-color: transparent;
+  border-radius: 12px;
+  border: 2px solid var(--secondary-color);
+  position: relative;
+  overflow: hidden;
+  transition:
+    all 0.3s ease,
+    0.2s border cubic-bezier(0.26, 0.62, 0.43, 1.06);
+  cursor: pointer;
+  box-shadow:
+    0 4px 8px rgba(0,0,0,0.3),
+    inset 1px 1px 2px rgba(255,255,255,0.05),
+    inset -1px -1px 2px rgba(0,0,0,0.4);
+}
+
+.checkbox::before {
+  content: "";
+  position: absolute;
+  top: 232%; /* Starts outside .background */
+  left: 50%;
+  transform: translate(-50%, -100%) scale(0.75); /* Scaled down initially */
+  border-radius: 50% 20% / 30% 70%;
+  width: 115%;
+  height: 115%;
+  filter: blur(4px);
+  background: var(--accent-color);
+  z-index: 1; /* Places the pseudo-element behind .download */
+  transition:
+    transform 0.56s cubic-bezier(0.5, 0.26, 0.7, 1.8),
+    top 0.38s ease,
+    filter 0.48s ease; /* Smooth position and scaling transitions */
+}
+.checkbox::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 75%;
+  height: 75%;
+  clip-path: polygon(
+    41% 52%,
+    26% 35%,
+    10% 51%,
+    37% 88%,
+    37% 88%,
+    37% 88%,
+    37% 88%,
+    91% 33%,
+    78% 18%
+  );
+  background: var(--text-color);
+  z-index: 1;
+  opacity: 0; /* Initially hidden */
+  transition: all 0.3s cubic-bezier(0.93, 0.17, 0.43, 1.07);
+}
+
+/* Use :has selector to target the checkbox when it's checked */
+.checkbox-container:has(.checkbox input[type="checkbox"]:checked)
+  .checkbox::before {
+  top: 50%; /* Moves to the center of ` */
+  transform: translate(-50%, -50%) scale(1); /* Fully fills the .download */
+  filter: blur(0px);
+}
+
+/* Ensure the pseudo-element reacts to the checkbox state */
+.checkbox-container:has(.checkbox input[type="checkbox"]:checked)
+  .checkbox::after {
+  opacity: 1;
+  transform: translate(-50%, -50%) perspective(70px) scale(1);
+  animation: checkmarkAnimation 0.5s ease-in-out forwards;
+}
+
+.checkbox:has(input[type="checkbox"]:checked) {
+  border: 0px solid; /* Border disappears when checked */
+}
+
+@keyframes checkmarkAnimation {
+  0% {
+    opacity: 0;
+    transform: perspective(70px) translate(10%, -20%) rotate(43deg)
+      rotateY(100deg) scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: perspective(70px) translate(-57%, -42%) rotate(32deg)
+      rotateY(55deg) scale(1.32);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(70px) translate(-50%, -50%) rotate(0deg)
+      rotateY(0deg) scale(1);
+  }
+}
+
+.task.done .label{
+  color: lightslategray;
+  text-decoration: line-through;
+}
+
+.label-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex: 1;
+  position: relative;
+}
+.confirmation{
+  position: absolute;
+  right: .7rem;
+}
+
+.confirmation svg,.confirmation svg g{
+  width: 36px;
+  height: 36px;
+  fill: var(--text-color);
+  stroke: var(--text-color);
+  cursor: pointer;
+  transition: fill .3s ease;
+}
+
+/* filter */
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex: 1;
+  gap: 1rem;
+
+  position: relative  ;
+  background: var(--primary-color);
+  height: 48px;
+  border-radius: 12px;
+  box-sizing: border-box;
+  box-shadow:
+    0 4px 8px rgba(0,0,0,0.3),
+    inset 1px 1px 2px rgba(255,255,255,0.05),
+    inset -1px -1px 2px rgba(0,0,0,0.4);
+  cursor: pointer;
+}
+#selector{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: .7rem;
+  width: 100%;
+
+}
+svg{
+  width: 24px;
+  height: 24px;
+  stroke: var(--accent-color);
+  transition: fill .3s ease;
+}
+.dropdown{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: .8rem;
+  position: absolute;
+  width: 100%;
+  top: 4rem;
+  z-index: 10;
+  background: var(--primary-color);
+  border-radius: 12px;
+  box-shadow:
+    0 4px 8px rgba(0,0,0,0.3),
+    inset 1px 1px 2px rgba(255,255,255,0.05),
+    inset -1px -1px 2px rgba(0,0,0,0.4);
+  padding: 1rem;
+  transform: scale(.7) translateY(-12px);
+  opacity: 0;
+  visibility: hidden;
+  filter: blur(9px);
+  transition: all .3s ease;
+}
+.dropdown.active {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  visibility: visible;
+  filter: blur(0);
+}
+button{
+  background: transparent;
+  color: var(--text-color);
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.dropdown button {
+  width: 100%;
+  padding: 0.4rem;
+  border-radius: 8px;
+
+  transition: background .3s ease, color .3s ease;
+}
+
+.dropdown button:hover {
+  color: var(--accent-color);
+  background: var(--secondary-color);
+}
+
+.hidden{
+  display: none;
+}
