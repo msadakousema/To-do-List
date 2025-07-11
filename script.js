@@ -1,3 +1,18 @@
+//Theme Switch
+const themeSwitch = document.querySelector(".switch");
+const body = document.body;
+
+themeSwitch.addEventListener("click", () => {
+    themeSwitch.classList.toggle("active");
+    body.classList.toggle("lightmode");
+    localStorage.setItem("theme", body.classList.contains("lightmode") ? "light" : "dark");
+});
+
+if (localStorage.getItem("theme") === "light") {
+    body.classList.add("lightmode");
+    themeSwitch.classList.add("active");
+} 
+
 //Filter
 const selector = document.getElementById("selector");
 const dropdown = document.querySelector(".dropdown");
@@ -68,7 +83,8 @@ function addTask(){
     task.className = "task"
     
     task.innerHTML = ` <div class="label-container">
-    <input value="${taskText}" readonly class="label">
+    <textarea readonly class="label">${taskText}</textarea>
+    </div>
     <div class="confirmation">
         <button class="edit">
             <?xml version="1.0" encoding="iso-8859-1"?>
@@ -93,7 +109,6 @@ function addTask(){
             </svg>
         </button>
     </div>
-</div>
 
 <article class="checkbox-container">
     <label class="checkbox">
@@ -117,11 +132,17 @@ function addTask(){
     //edit
     const edit = task.querySelector(".edit");
     edit.addEventListener("click", () => editTask(task));
+
+    // Auto-grow for the new textarea
+    const label = task.querySelector(".label");
+    autoGrow(label);
+    label.addEventListener("input", function() {
+        autoGrow(this);
+    });
 }
 
 function taskDone(task) {
     const checkBox = task.querySelector("input[type='checkbox']");
-    console.log(checkBox);
     checkBox.addEventListener("change", () => {
     if (checkBox.checked) {
         task.classList.add("done");
@@ -139,6 +160,11 @@ function editTask(task){
     const confirmation = task.querySelector(".confirmation");
     label.removeAttribute("readonly");
     label.focus();
+    autoGrow(label); // Ensure correct height on edit
+
+    // Listen for input to auto-grow while editing
+    function onInput() { autoGrow(label); }
+    label.addEventListener("input", onInput);
 
     const confirmBtn = document.createElement("button");
     confirmBtn.innerHTML=`
@@ -185,6 +211,7 @@ function editTask(task){
 
     confirmBtn.addEventListener("click", () => { 
         label.setAttribute("readonly","readonly");
+        label.removeEventListener("input", onInput); // Clean up
 
         confirmation.removeChild(confirmBtn); // Remove the confirm button
         confirmation.removeChild(cancelBtn); // Remove the cancel button
@@ -194,6 +221,7 @@ function editTask(task){
     cancelBtn.addEventListener("click", () => {
         label.value = labelText; // Restore the original text
         label.setAttribute("readonly","readonly");
+        label.removeEventListener("input", onInput); // Clean up
         
         confirmation.removeChild(confirmBtn); // Remove the confirm button
         confirmation.removeChild(cancelBtn); // Remove the cancel button
@@ -203,4 +231,10 @@ function editTask(task){
 }
 
 addBtn.addEventListener("click", addTask);
+
+// Auto-grow textarea function
+function autoGrow(textarea) {
+    textarea.style.height = "auto";
+    textarea.style.height = (textarea.scrollHeight) + "px";
+}
 
