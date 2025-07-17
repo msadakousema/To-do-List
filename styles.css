@@ -33,6 +33,11 @@
   --text-color: #222222;
 }
 
+::selection {
+  background: var(--blue);
+  color: var(--background-color);
+}
+
 body {
   font-family: 'Inter', sans-serif;
   background: var(--bg) no-repeat center center fixed;
@@ -185,6 +190,7 @@ h1 {
   backdrop-filter: blur(10px); /* subtle blur effect */
   border-radius: 2.4rem;
   box-shadow: var(--shadow-main);
+  transition: all .3s ease-in-out
 }
 
 .todo-container {
@@ -607,4 +613,40 @@ button{
 
 .hidden{
   display: none;
+}
+
+.error-label {
+  color: var(--danger-color);
+  background-color: rgba(242, 95, 92, 0.1);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 1rem;
+  padding: 0.7rem;
+  letter-spacing: 6px;
+  border-radius: 8px;
+  box-shadow: var(--shadow-small), var(--shadow-inset-minimal);
+  transition: opacity 0.3s ease, visibility 0.3s ease, letter-spacing 0.4s ease, filter 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  filter: blur(4px);
+  backdrop-filter: blur(10px);
+}
+
+.error-label.visible {
+  opacity: 1;
+  visibility: visible;
+  filter: blur(0);
+  letter-spacing: 1px;
+}
+
+body:has(.error-label.visible) .main-container {
+  opacity: .6;
+  filter: blur(4px);
+  box-shadow: none;
 }

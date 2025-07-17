@@ -13,6 +13,7 @@ if (localStorage.getItem("theme") === "light") {
     themeSwitch.classList.add("active");
 } 
 
+
 //Filter
 const selector = document.getElementById("selector");
 const dropdown = document.querySelector(".dropdown");
@@ -73,7 +74,12 @@ function addTask(){
     const input = document.getElementById("todo-input");
     const taskText = input.value;
     if (!taskText) {
-        alert("Please enter a task.");
+        const errorLabel = document.querySelector(".error-label");
+        errorLabel.classList.add("visible");
+        setTimeout(() => {
+            errorLabel.classList.remove("visible");
+        }, 2000); // Hide the error after 2.5 seconds
+        input.focus(); // Focus back on the input field
         return;
     }
 
@@ -238,3 +244,20 @@ function autoGrow(textarea) {
     textarea.style.height = (textarea.scrollHeight) + "px";
 }
 
+const person = {
+    firstName: "Oussema", 
+    lastName: "Msadak",
+    get fullName(){
+        return `${this.firstName} ${this.lastName}`;
+    },
+    set fullName(name) {
+        const parts = name.split(" ");
+        this.firstName = parts[0];
+        this.lastName = parts[1] || "";
+    }
+}
+
+console.log(person.fullName); // Oussema Msadak
+person.fullName = "John Doe";
+console.log(person.firstName); // John
+console.log(person.lastName); // Doe
