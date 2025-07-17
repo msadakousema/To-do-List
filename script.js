@@ -78,7 +78,7 @@ function addTask(){
         errorLabel.classList.add("visible");
         setTimeout(() => {
             errorLabel.classList.remove("visible");
-        }, 2000); // Hide the error after 2.5 seconds
+        }, 2000); // Hide the error after 2 seconds
         input.focus(); // Focus back on the input field
         return;
     }
