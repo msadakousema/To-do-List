@@ -244,20 +244,3 @@ function autoGrow(textarea) {
     textarea.style.height = (textarea.scrollHeight) + "px";
 }
 
-const person = {
-    firstName: "Oussema", 
-    lastName: "Msadak",
-    get fullName(){
-        return `${this.firstName} ${this.lastName}`;
-    },
-    set fullName(name) {
-        const parts = name.split(" ");
-        this.firstName = parts[0];
-        this.lastName = parts[1] || "";
-    }
-}
-
-console.log(person.fullName); // Oussema Msadak
-person.fullName = "John Doe";
-console.log(person.firstName); // John
-console.log(person.lastName); // Doe
