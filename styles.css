@@ -236,6 +236,23 @@ h1 {
   color: var(--text-color);
 }
 
+textarea{
+  resize: vertical;
+}
+.task{
+  visibility: visible;
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+  transition: .3s ease;
+}
+
+.fade-out{
+  visibility: hidden;
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateY(12px) scale(.8);
+}
 input:focus,textarea:focus {
   outline: none;
   box-shadow: var(--shadow-focus), var(--shadow-inset-light);
@@ -517,9 +534,10 @@ p,.task{
     padding: 0;
   }
 
-.confirmation svg,.confirmation svg g{
-  width: 44px;
-  height: 44px;
+.confirmation button{
+  width: 48px;
+  height: 48px;
+  font-size: 2rem;
   display: inline-block;
   fill: var(--text-color);
   stroke: var(--text-color);
@@ -612,7 +630,7 @@ button{
 }
 
 .hidden{
-  display: none;
+  display: none !important;
 }
 
 .error-label {
