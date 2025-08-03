@@ -128,8 +128,11 @@ function createTask(taskText, isDone = false) {
     taskDone(task);
     const removeBtn = task.querySelector(".remove-todo");
     removeBtn.addEventListener("click", () => {
-        task.remove();
-        updateLocalStorage();
+        task.classList.add("fade-out");
+        setTimeout(() => {
+            task.remove();
+            updateLocalStorage();
+        }, 300);
     });
 
     const edit = task.querySelector(".edit");
@@ -140,7 +143,9 @@ function createTask(taskText, isDone = false) {
     label.addEventListener("input", function () {
         autoGrow(this);
     });
-
+    setTimeout(() => {
+        filterTasks(localStorage.getItem("filterState") || "All");
+    }, 800);
     updateLocalStorage();
 }
 
