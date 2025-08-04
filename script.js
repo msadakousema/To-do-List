@@ -173,7 +173,7 @@ function editTask(task) {
     label.addEventListener("input", onInput);
 
     const confirmBtn = document.createElement("button");
-    confirmBtn.innerText = "✔️";
+    confirmBtn.innerText = "✅";
     confirmBtn.classList.add("confirm");
 
     const cancelBtn = document.createElement("button");

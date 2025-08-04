@@ -251,7 +251,7 @@ textarea{
   visibility: hidden;
   opacity: 0;
   filter: blur(10px);
-  transform: translateY(12px) scale(.8);
+  transform: translateY(12px) scale(.7);
 }
 input:focus,textarea:focus {
   outline: none;
@@ -526,7 +526,7 @@ p,.task{
   gap: 0.5rem;
   background: var(--secondary-color);
   border-radius: 12px;
-  padding: 4px 8px;
+  padding: 4px ;
   box-shadow: var(--shadow-element), var(--shadow-inset-minimal);
 }
 
@@ -539,14 +539,11 @@ p,.task{
   height: 48px;
   font-size: 2rem;
   display: inline-block;
-  fill: var(--text-color);
-  stroke: var(--text-color);
   cursor: pointer;
   transition:  .3s ease;
 }
 
 /* filter */
-
 .filter-container {
   display: flex;
   align-items: center;
@@ -594,10 +591,10 @@ svg{
   border-radius: 12px;
   box-shadow: var(--shadow-element), var(--shadow-inset-minimal);
   padding: 1rem;
-  transform: scale(.7) translateY(-12px);
   opacity: 0;
   visibility: hidden;
   filter: blur(9px);
+  transform: scale(.7) translateY(-12px);
   transition: all .3s ease;
 }
 
@@ -663,7 +660,7 @@ button{
   letter-spacing: 1px;
 }
 
-body:has(.error-label.visible) .main-container {
+body:has(.error-label.visible) .main-container{
   opacity: .6;
   filter: blur(4px);
   box-shadow: none;
